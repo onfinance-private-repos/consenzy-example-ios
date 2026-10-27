@@ -15,7 +15,7 @@ struct HomeView: View {
                 FieldRow(label: "Customer (external_ref)", value: session.externalRef)
                 FieldRow(label: "Acting as", value: profile?.actingAs.rawValue ?? session.grant.actingAs)
                 FieldRow(label: "Capabilities", value: (profile.map { $0.capabilities.map(\.rawValue).sorted() } ?? session.grant.capabilities).joined(separator: ", "))
-                FieldRow(label: "Backend", value: "\(session.grant.mode) at \(session.consent.baseURL.absoluteString)")
+                FieldRow(label: "Backend", value: "\(session.grant.mode) at \(session.grant.baseURL)")
                 if profile?.requiresGuardianSession == true {
                     Label("This customer acts through a guardian: consent needs a guardian session.", systemImage: "person.2")
                         .font(.footnote)
