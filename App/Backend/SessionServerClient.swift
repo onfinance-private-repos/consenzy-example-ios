@@ -104,10 +104,14 @@ struct SessionServerClient: Sendable {
         let (data, response) = try await urlSession.data(for: request)
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
         guard (200..<300).contains(status) else {
-            struct Detail: Decodable { let detail: String? }
-            let detail = (try? JSONDecoder().decode(Detail.self, from: data))?.detail ?? "unexpected response"
+            let detail = (try? JSONDecoder().decode(ErrorBody.self, from: data))?.detail ?? "unexpected response"
             throw SessionServerError(status: status, detail: detail)
         }
         return try JSONDecoder().decode(T.self, from: data)
+    }
+
+    /// `{"detail": "…"}` error bodies.
+    private struct ErrorBody: Decodable {
+        let detail: String?
     }
 }
