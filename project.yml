@@ -1,0 +1,62 @@
+# XcodeGen spec. Generate the Xcode project with:
+#   brew install xcodegen && xcodegen generate
+# The generated ConsenzyExample.xcodeproj is not committed.
+name: ConsenzyExample
+options:
+  bundleIdPrefix: dev.never2average
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+
+packages:
+  # Vendored Consenzy iOS SDK (Apache-2.0) until it is published to SPM / CocoaPods.
+  OnFinanceConsenzy:
+    path: vendor/consenzy-ios
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  ConsenzyExample:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.never2average.ConsenzyExample
+        INFOPLIST_FILE: Support/Info.plist
+        TARGETED_DEVICE_FAMILY: "1"
+        ENABLE_PREVIEWS: YES
+    dependencies:
+      - package: OnFinanceConsenzy
+        product: OnFinanceConsenzy
+      - package: OnFinanceConsenzy
+        product: OnFinanceConsenzyUI
+
+  ConsenzyExampleTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: dev.never2average.ConsenzyExampleTests
+    dependencies:
+      - target: ConsenzyExample
+
+schemes:
+  ConsenzyExample:
+    build:
+      targets:
+        ConsenzyExample: all
+        ConsenzyExampleTests: [test]
+    test:
+      gatherCoverageData: false
+      targets:
+        - ConsenzyExampleTests

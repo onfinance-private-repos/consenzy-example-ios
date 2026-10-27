@@ -1,0 +1,9 @@
+Consenzy iOS SDK (OnFinanceConsenzy)
+Copyright 2026 OnFinance
+
+This product includes software developed by OnFinance (https://consenzy.onfinance.ai).
+It is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Only this client SDK is open source. The Consenzy server, API and operator
+portal it talks to are proprietary OnFinance software and are not covered by
+this licence.

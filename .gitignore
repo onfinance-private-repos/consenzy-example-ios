@@ -1,0 +1,22 @@
+# Xcode / XcodeGen
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+*.xcresult
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Secrets and local config
+.env
+.env.*
+
+# OS / editors
+.DS_Store
+*.swp
+.idea/
+.vscode/
